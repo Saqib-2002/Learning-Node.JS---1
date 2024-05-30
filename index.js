@@ -4,6 +4,7 @@ const fs = require("fs");
 const http = require("http");
 const path = require("path");
 const url = require("url");
+const slugify = require("slugify");
 
 // Own modules
 const replaceTemplate = require("./modules/replaceTemplate");
@@ -73,6 +74,9 @@ const templateProduct = fs.readFileSync(
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
+
+const slugs = dataObj.map((el) => slugify(el.productName, { lower: true }));
+console.log(slugs);
 
 const server = http.createServer((req, res) => {
   // console.log(req)
@@ -163,3 +167,45 @@ nodemon - it's a tool that helps us to develop node.js applications by automatic
 // Lecture - An overview of how the web works
 
  */
+
+// 30.May.2024
+/*
+Lecture - Using Modules 3: 3rd Party Modules
+Slugify - slug, which is used to change the name on your own
+
+Lecture - Package Versioning and Updating.
+^1.18.11 (major version.minor version.patch version)
+patch version is intended to fix bugs
+minor version introduces some new features into the package but it does not include breaking changes(means is backward compatible).
+
+Lecture - HTTP in Action
+Lots of request in webpages
+Lecture - Front-End vs. Back-End Web Development
+Lecture - Static vs. Dynamic vs. API
+
+Static/Simple Website - it's a website when a developer uploads the final ready to be served files(HTML, CSS, JS, etc) of a website onto the web server.
+These are the exact files that the server will later send to the browser when the website is requested. The browser take these files and render them as they are.
+This means there is no work done on the server, there is no back-end code, and there's no application running. It's just a static web server serving static files.
+
+In the browser context, dynamic has nothing to do with effects on a page or things moving around but with the way websites are generated on servers.
+
+Dynamic Website - It is different from static website because they are usually built on the server each time a new request comes in.
+Dynamic websites usually contains a database, then there's an also an application running like a node.js app, which fetches data from the database and then together with
+a predefined template builts each page that the user requests dynamically based on the data coming from the database. So each time a browser requests a page, that page is than built
+as HTML, CSS and JS files which will then be sent back to the browser. This whole process is sometimes called server-side rendering. That's why it's called dynamic because the website
+can change all the time acc. to the content that's in the database or user's actions on the site.
+
+Dynamic websites are sometimes also known as web applications. Web application means dynamic website with some functionality in it.
+
+API Powered Websites - Just like the dynamic websites, we have a database here, and we have an app that fetches data from the database each time a client makes a request. The big difference here is that with an API, we only send the data to the browser
+usually in the JSON data format and not the entire website. In this, just the data is sent to the client and not the ready to be displayed website.
+
+API powered websites has two steps - 1. Building an API and 2. Consuming the API on the client side.
+API - It's a piece of software that can be used by another piece of software to allow applications to talk to each other.
+
+Dynamic websites are called server-side rendered because they are actually built on the server.
+API-powered websites are often called client-side rendered
+
+Node is an perfect tool for building API's and it's very commonly used for that. But it's also perfectly suitable to build a dynamic server-side rendered website.
+
+*/
