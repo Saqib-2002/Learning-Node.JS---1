@@ -209,3 +209,31 @@ API-powered websites are often called client-side rendered
 Node is an perfect tool for building API's and it's very commonly used for that. But it's also perfectly suitable to build a dynamic server-side rendered website.
 
 */
+
+// 31.May.2024
+/*
+Lecture - Node V8 Libuv and C++
+The Node Architecture Behind the Scenes - The node run time has several dependencies and the most important ones are the V8 JS engine and Libuv. Node is JS runtime based on Google's V8 engine, and that's why it appears here as dependency. If it wasn't for V8, Node would have absolutely no way of understanding the JS code that we write and therefore V8 is a fundamental part in the Node Architecture.
+
+The V8 engine converts JS code into machine code that a computer can actually understand.
+
+Libuv - It is an open source library with a strong focus on asynchronous I/O. This layer what gives Node access to the underlying computer OS, FS, networking, and more. Besides that Libuv is also implements two exteremely features of node.js which are the event loop and also the thread pool.
+
+Event Loop - It is responsible for handling easy tasks like executing call backs and network I/O while the thread pool is for more heavy work like file access or compression or something like that.
+
+Libuv is completely written in C++ and not in JS and V8 also uses C++ code besides JS. So therefore, Node itself is a program written in C++ and JS and not just in JS.
+
+node.js ties all these libraries together, no matter if written in C++ or JS and gives us developers access to their functions in pure JS. It really provides us with a very nice layer of abstraction in order to make our lives a lot easier instead of us like having to mess with C++ code.
+
+Lecture - 31 - Processes Threads and the Thread Pool
+Node Process and Thread
+Node.JS Process - When we use node on a computer, it means that there is a node process running on that computer. The process is just a program in execution.
+
+In Node, we have a access to a process variable. In that process, node.js runs in a so called single thread.
+
+A thread is just a sequence of instructions.
+
+If you run your Node application, it'll run in a single thread no matter if you have 10 users or 10 million users accessing your application at the same time. So you need to be very careful about not blocking that thread.
+
+There are some tasks which are too heavy to be executed in the event loop because they would then block the single thread, and so that's where the thread pool comes in which just like the event loop is provided to node.js by the Libuv library. The thread pool gives us four additional threads that are completely seperate from the main single thread and we can configure it up to 128 threads. These threads together formed a thread pool and the event loop can then automatically offload heavy tasks to the thread pool. All this happens automatically behind the scenes.
+*/
